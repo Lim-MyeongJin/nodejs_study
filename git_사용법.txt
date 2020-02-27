@@ -1,0 +1,103 @@
+설치방법: https://kcmschool.com/178
+
+
+명령어
+
+#git 처음 설치시 이름과 메일 설정
+git config --global user.name [name명]
+git config --global user.email [메일명(메일@naver.com)]
+ 
+ex)
+git config --global user.name "John Doe"
+git config --global user.email johndoe@example.com
+ 
+만약 name, email 을 바꾸고 싶다면
+바꿀 내용만 다르게하여 위와 같이 적어주면 됩니다.
+ 
+ 
+# 설정확인
+git config --list
+ 
+ 
+# 도움말
+git --help
+ 
+ 
+# 버전확인
+git --version
+
+###############################1.github사이트에 repository만든 후 진행할 것.########################################
+###############################2.github와 연동할 폴더 생성하기.#####################################################
+###############################3.github에 push(업로드)하기.#########################################################
+
+$ git init 
+
+$ git remote add origin "repository address" 
+
+$ git add . $ git status 
+
+$ git commit -m "message" 
+
+$ git push -u origin master #-u origin master는 브랜치 추적용으로 push나 pull할 때 좀더 편하게 사용가능. 생략가능. 
+
+$ git pull -u origin master
+
+###############################4.기존 repository 내 local에 받아 시작하기.#########################################################
+
+$ git clone "repository address" #이걸하게되면 .git파일이 자동생성되고 설정되어 따로 git init명령어를 실행안해도 됨
+
+###############################5.다른 작업자와 공동작업 시 주의 사항.##############################################################
+git의 목적은 다른 여러 작업자와 공동으로 협업하기 위한 도구
+
+같이 작업하다보면 같은 영역에 작업하거나 명령실행을 잘못하여 오류가 발생하는 경우가 있음
+
+이런 오류발생을 막기 위해 해야할 일은 작업을 하고 stage에 올리기전 꼭 git pull 명령어 입력해서 다른 작업자의 수정사항을 받고 
+내가 작업한 내용과 합쳐질(merge) 수 있도록 올리는 습관
+
+*작업순서
+git pull origin master
+git add .
+git commit -m "message"
+git push origin master
+
+
+############################### branch 만들고 사용하기 ##############################################################
+*branch란 - 기존 repository(저장소)를 생성하면 master라는 branch가 생성된다.
+            새로운 branch를 생성하면 기존 master branch와 별개로 영향없이 여러 작업 진행 가능
+            테스트로 만든 후 기존 repository에 반영하고자 할 경우 안전하게 merge할 수 있다.
+
+*branch 생성방법
+git branch 이름 #비우게 되면 new_area로 생서됨
+
+*branch 목록확인
+git branch
+
+*다른 branch 선택
+git checkout -b branch명 # -b옵션을 넣으면 빠르게 전환
+
+*local branch를 remote(원격: github) branch에 적용
+git push origin branch명
+
+*매번쓰기 귀찮기 때문에 -u 옵션을 사용하면 다음부터는 바로 git pull 또는 git push만 작성하면 됨
+ex) git push -u origin new_area
+    git push or pull
+
+*branch 삭제
+git branch -d 삭제할 branch명 #작업한 사항이나 병합되어 있지 않은 commit이 있는 경우 -D옵션 사용
+
+*remote branch 삭제
+git push origin : 삭제한 branch명
+
+*branch merge(병합)하기
+- 병합을 할 branch로 checkout하여 이동하여 다음과 같은 명령어를 실행
+git merge 'master에 병합할 branch명'
+
+
+
+
+
+
+
+
+
+
