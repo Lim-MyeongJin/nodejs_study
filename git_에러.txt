@@ -1,0 +1,11 @@
+remote: Permission to~~~~~ 403
+
+--> 제어판-사용자계정-자격증명관리자-일반자격증명-github 계정변경
+--> 참고사이트: https://recoveryman.tistory.com/392
+
+
+
+! [rejected] master -> master (fetch first)
+
+--> git push origin +master(강제진행)
+--> 기존 데이터 손실 우려
