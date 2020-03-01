@@ -1,31 +1,228 @@
-//지금당장은 이해가 안되겠지만 이걸 이해하는게 저희 수업의 목표!
+// //지금당장은 이해가 안되겠지만 이걸 이해하는게 저희 수업의 목표!
+// var http = require('http');
+// var fs = require('fs');
+// var app = http.createServer(function(request,response){
+//     var url = request.url;
+//     if(url == '/'){
+//       url = '/index.html';
+//     }
+//     if(url == '/favicon.ico'){
+//       return response.writeHead(404);
+//     }
+//     response.writeHead(200);
+//     response.end(fs.readFileSync(__dirname + url));
+//     // response.end('nodejs : '+url);
 
-var http = require('http');
-var fs = require('fs');
-var app = http.createServer(function(request,response){
-    var url = request.url;
-    if(request.url == '/'){
-      url = '/index.html';
+// });
+// //80으로 지정하면 서버의 포트번호를 표현하는 기본값이 80이기 때문에 해당 웹어플리케이션으로 접속할때 포트번호 생략이 가능하다.
+// // app.listen(80);
+// app.listen(3000);
+
+///////////////////////////////////// url 값 가져오기 예제 ///////////////////////////////////
+//require(모듈이름)
+// var http = require('http');
+// var fs = require('fs');
+// var url = require('url');
+
+// var app = http.createServer(function(request,response){
+//     var _url = request.url;
+//     var queryData = url.parse(_url, true).query;
+
+//     console.log(_url);
+//     console.log(queryData);
+//     console.log(queryData.id);
+
+//     if(_url == '/'){
+//       _url = '/index.html';
+//     }
+//     if(_url == '/favicon.ico'){
+//       return response.writeHead(404);
+//     }
+//     response.writeHead(200);
+//     response.end(queryData.id);
+// });
+// //80으로 지정하면 서버의 포트번호를 표현하는 기본값이 80이기 때문에 해당 웹어플리케이션으로 접속할때 포트번호 생략이 가능하다.
+// // app.listen(80);
+// app.listen(3000);
+
+// ///////////////////////////////////// url값에 따라 다른 웹페이지 보여주기 /////////////////////////////////////
+// var http = require('http');
+// var fs = require('fs');
+// var url = require('url');
+
+// var app = http.createServer(function(request,response){
+//     var _url = request.url;
+//     var queryData = url.parse(_url, true).query;
+//     var title = queryData.id;
+//     console.log(_url);
+//     console.log(queryData);
+//     console.log(queryData.id);
+
+//     if(_url == '/'){
+//       // _url = '/index.html';
+//       title = 'Welcome';
+//     }
+//     if(_url == '/favicon.ico'){
+//       return response.writeHead(404);
+//     }
+//     response.writeHead(200);
+//     var template = `
+//     <!doctype html>
+//     <html>
+//     <head>
+//       <title>WEB1 - ${title}</title>
+//       <meta charset="utf-8">
+//       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+//       <script src="colors.js"></script>
+//     </head>
+//     <body>
+//       <h1><a href="/">WEB</a></h1>
+//       <input id="night_day" type="button" value="night" onclick="nightDayHandler(this);">
+//       <ol>
+//         <li><a href="/?id=HTML">HTML</a></li>
+//         <li><a href="/?id=CSS">CSS</a></li>
+//         <li><a href="/?id=JavaScript">JavaScript</a></li>
+//       </ol>
+//       <h2>${title}</h2>
+//       <p>${}</p>
+//     </body>
+//     </html>
+//     `;
+
+//     response.end(template);
+// });
+// app.listen(3000);
+
+// ///////////////////////////////////// fs모듈을 활용하여 동적으로 파일읽어들이기 /////////////////////////////////////
+// var http = require('http');
+// var fs = require('fs');
+// var url = require('url');
+
+// var app = http.createServer(function(request,response){
+//     var _url = request.url;
+//     var queryData = url.parse(_url, true).query;
+//     var title = queryData.id;
+//     console.log(_url);
+//     console.log(queryData);
+//     console.log(queryData.id);
+
+//     if(_url == '/'){
+//       // _url = '/index.html';
+//       title = 'Welcome';
+//     }
+//     if(_url == '/favicon.ico'){
+//       return response.writeHead(404);
+//     }
+//     response.writeHead(200);
+
+//     fs.readFile(`nodejs_study/basic_nodejs/data/${title}`,'utf8',function(err,description){
+//       var template = `
+//       <!doctype html>
+//       <html>
+//       <head>
+//         <title>WEB1 - ${title}</title>
+//         <meta charset="utf-8">
+//         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+//         <script src="colors.js"></script>
+//       </head>
+//       <body>
+//         <h1><a href="/">WEB</a></h1>
+//         <input id="night_day" type="button" value="night" onclick="nightDayHandler(this);">
+//         <ol>
+//           <li><a href="/?id=HTML">HTML</a></li>
+//           <li><a href="/?id=CSS">CSS</a></li>
+//           <li><a href="/?id=JavaScript">JavaScript</a></li>
+//         </ol>
+//         <h2>${title}</h2>
+//         <p>${description}</p>
+//       </body>
+//       </html>
+//       `;
+
+//       response.end(template);
+//     });
+
+// });
+// app.listen(3000);
+
+///////////////////////////////////// 조건문 활용  /////////////////////////////////////
+var http = require("http");
+var fs = require("fs");
+var url = require("url");
+
+var app = http.createServer(function(request, response) {
+  var _url = request.url;
+  var queryData = url.parse(_url, true).query;
+  var pathname = url.parse(_url, true).pathname;
+
+  //url주소창으로 HTML,CSS,Javascript,/ 이외 다른 값이 들어오는 경우에 대한 처리
+  //console.log(url.parse(_url, true)); //주어진 url정보를 분석해서 객체형태로 돌려준다..
+  //console.log(url.parse(_url, true).pathname);
+
+  if (pathname === "/") {
+    if (queryData.id === undefined) {
+      fs.readFile(`nodejs_study/basic_nodejs/data/${queryData.id}`,'utf8',function(err, description) {
+          var title = "Welcome";
+          var description = "Hello Node.js!";
+          var template = `
+          <!doctype html>
+          <html>
+          <head>
+            <title>WEB1 - ${title}</title>
+            <meta charset="utf-8">
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+            <script src="colors.js"></script>
+          </head>
+          <body>
+            <h1><a href="/">WEB</a></h1>
+            <input id="night_day" type="button" value="night" onclick="nightDayHandler(this);">
+            <ul>
+              <li><a href="/?id=HTML">HTML</a></li>
+              <li><a href="/?id=CSS">CSS</a></li>
+              <li><a href="/?id=JavaScript">JavaScript</a></li>
+            </ul>
+            <h2>${title}</h2>
+            <p>${description}</p>
+          </body>
+          </html>
+          `;
+          response.writeHead(200);
+          response.end(template);
+        }
+      );
+    } else {
+      fs.readFile(`nodejs_study/basic_nodejs/data/${queryData.id}`,'utf8',function(err, description) {
+          var title = queryData.id;
+          var template = `
+        <!doctype html>
+        <html>
+        <head>
+          <title>WEB1 - ${title}</title>
+          <meta charset="utf-8">
+          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+          <script src="colors.js"></script>
+        </head>
+        <body>
+          <h1><a href="/">WEB</a></h1>
+          <input id="night_day" type="button" value="night" onclick="nightDayHandler(this);">
+          <ul>
+            <li><a href="/?id=HTML">HTML</a></li>
+            <li><a href="/?id=CSS">CSS</a></li>
+            <li><a href="/?id=JavaScript">JavaScript</a></li>
+          </ul>
+          <h2>${title}</h2>
+          <p>${description}</p>
+        </body>
+        </html>
+        `;
+          response.writeHead(200);
+          response.end(template);
+        }
+      );
     }
-    if(request.url == '/favicon.ico'){
-      return response.writeHead(404);
-    }
-    response.writeHead(200);
-    console.log(__dirname + url);
-    response.end(fs.readFileSync(__dirname + url));
-    // response.end('nodejs : '+url);
- 
+  } else {
+    response.writeHead(404);
+    response.end("Not found..");
+  }
 });
-app.listen(3000); 
-
-//main.js에서 여기 3000이라고 했고 주소창에도 3000이라고 하는 것은
-//여기 3000번 포트에 우리의 nodejs 웹서버를 실행시킨거기 때문에
-//접속할 때 3000번을 명시해야 한다는 것이죠.
-//3000 대신 80으로 설정하면 포트번호를 생략해도 됩니다.
-//왜냐면 웹서버는 굉장히 유명한 서버이기 때문에 
-//웹서버는 80번 포트를 쓴다라고 전세계적으로 약속되어있기 때문에
-//우리가 http를 통해서 접속했다 그러면 웹서버에 접속한 거에요.
-//그러면 80을 생략하면 여기 포트번호를 생략하면 80에 접속한 겁니다. 기본값에 접근한거에요.
-//어려운 얘기이긴 하지만, 이해안되도 괜찮아요 차근차근 배워나가면 됩니다.
-
-//그 다음에 'main'라고 하는 것은 
+app.listen(3000);
