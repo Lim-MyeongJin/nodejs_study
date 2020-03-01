@@ -9,3 +9,4 @@ remote: Permission to~~~~~ 403
 
 --> git push origin +master(강제진행)
 --> 기존 데이터 손실 우려
+--> git pull을 진행한 후 다시 실행
