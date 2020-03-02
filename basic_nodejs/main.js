@@ -146,6 +146,88 @@
 // app.listen(3000);
 
 ///////////////////////////////////// 조건문 활용  /////////////////////////////////////
+// var http = require("http");
+// var fs = require("fs");
+// var url = require("url");
+
+// var app = http.createServer(function(request, response) {
+//   var _url = request.url;
+//   var queryData = url.parse(_url, true).query;
+//   var pathname = url.parse(_url, true).pathname;
+
+//   //url주소창으로 HTML,CSS,Javascript,/ 이외 다른 값이 들어오는 경우에 대한 처리
+//   //console.log(url.parse(_url, true)); //주어진 url정보를 분석해서 객체형태로 돌려준다..
+//   //console.log(url.parse(_url, true).pathname);
+
+//   if (pathname === "/") {
+//     if (queryData.id === undefined) {
+//       fs.readFile(`data/${queryData.id}`,'utf8',function(err, description) {
+//           var title = "Welcome";
+//           var description = "Hello Node.js!";
+//           var template = `
+//           <!doctype html>
+//           <html>
+//           <head>
+//             <title>WEB1 - ${title}</title>
+//             <meta charset="utf-8">
+//             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+//             <script src="colors.js"></script>
+//           </head>
+//           <body>
+//             <h1><a href="/">WEB</a></h1>
+//             <input id="night_day" type="button" value="night" onclick="nightDayHandler(this);">
+//             <ul>
+//               <li><a href="/?id=HTML">HTML</a></li>
+//               <li><a href="/?id=CSS">CSS</a></li>
+//               <li><a href="/?id=JavaScript">JavaScript</a></li>
+//             </ul>
+//             <h2>${title}</h2>
+//             <p>${description}</p>
+//           </body>
+//           </html>
+//           `;
+//           response.writeHead(200);
+//           response.end(template);
+//         }
+//       );
+//     } else {
+//       fs.readFile(`data/${queryData.id}`,'utf8',function(err, description) {
+//           var title = queryData.id;
+//           var template = `
+//         <!doctype html>
+//         <html>
+//         <head>
+//           <title>WEB1 - ${title}</title>
+//           <meta charset="utf-8">
+//           <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+//           <script src="colors.js"></script>
+//         </head>
+//         <body>
+//           <h1><a href="/">WEB</a></h1>
+//           <input id="night_day" type="button" value="night" onclick="nightDayHandler(this);">
+//           <ul>
+//             <li><a href="/?id=HTML">HTML</a></li>
+//             <li><a href="/?id=CSS">CSS</a></li>
+//             <li><a href="/?id=JavaScript">JavaScript</a></li>
+//           </ul>
+//           <h2>${title}</h2>
+//           <p>${description}</p>
+//         </body>
+//         </html>
+//         `;
+//           response.writeHead(200);
+//           response.end(template);
+//         }
+//       );
+//     }
+//   } else {
+//     response.writeHead(404);
+//     response.end("Not found..");
+//   }
+// });
+// app.listen(3000);
+
+///////////////////////////////////// 조건문 활용  /////////////////////////////////////
 var http = require("http");
 var fs = require("fs");
 var url = require("url");
@@ -155,16 +237,25 @@ var app = http.createServer(function(request, response) {
   var queryData = url.parse(_url, true).query;
   var pathname = url.parse(_url, true).pathname;
 
-  //url주소창으로 HTML,CSS,Javascript,/ 이외 다른 값이 들어오는 경우에 대한 처리
-  //console.log(url.parse(_url, true)); //주어진 url정보를 분석해서 객체형태로 돌려준다..
-  //console.log(url.parse(_url, true).pathname);
-
   if (pathname === "/") {
     if (queryData.id === undefined) {
-      fs.readFile(`nodejs_study/basic_nodejs/data/${queryData.id}`,'utf8',function(err, description) {
-          var title = "Welcome";
-          var description = "Hello Node.js!";
-          var template = `
+      fs.readdir(`data`, function(err, fileList) {
+        console.log(fileList);
+
+        var title = "Welcome";
+        var description = "Hello Node.js!";
+
+        var list = "<ul>";
+        var i = 0;
+
+        while (i < fileList.length) {
+          list += `<li><a href='/?id=${fileList[i]}'>${fileList[i]}</a></li>`;
+          i = i + 1;
+        }
+
+        list = list + "</ul>";
+
+        var template = `
           <!doctype html>
           <html>
           <head>
@@ -176,22 +267,33 @@ var app = http.createServer(function(request, response) {
           <body>
             <h1><a href="/">WEB</a></h1>
             <input id="night_day" type="button" value="night" onclick="nightDayHandler(this);">
-            <ul>
-              <li><a href="/?id=HTML">HTML</a></li>
-              <li><a href="/?id=CSS">CSS</a></li>
-              <li><a href="/?id=JavaScript">JavaScript</a></li>
-            </ul>
+            ${list}
             <h2>${title}</h2>
             <p>${description}</p>
           </body>
           </html>
           `;
-          response.writeHead(200);
-          response.end(template);
-        }
-      );
+        response.writeHead(200);
+        response.end(template);
+      });
     } else {
-      fs.readFile(`nodejs_study/basic_nodejs/data/${queryData.id}`,'utf8',function(err, description) {
+      fs.readdir(`data`, function(err, fileList) {
+        console.log(fileList);
+
+        var title = "Welcome";
+        var description = "Hello Node.js!";
+
+        var list = "<ul>";
+        var i = 0;
+
+        while (i < fileList.length) {
+          list += `<li><a href='/?id=${fileList[i]}'>${fileList[i]}</a></li>`;
+          i = i + 1;
+        }
+
+        list = list + "</ul>";
+
+        fs.readFile(`data/${queryData.id}`, "utf8", function(err, description) {
           var title = queryData.id;
           var template = `
         <!doctype html>
@@ -205,11 +307,7 @@ var app = http.createServer(function(request, response) {
         <body>
           <h1><a href="/">WEB</a></h1>
           <input id="night_day" type="button" value="night" onclick="nightDayHandler(this);">
-          <ul>
-            <li><a href="/?id=HTML">HTML</a></li>
-            <li><a href="/?id=CSS">CSS</a></li>
-            <li><a href="/?id=JavaScript">JavaScript</a></li>
-          </ul>
+          ${list}
           <h2>${title}</h2>
           <p>${description}</p>
         </body>
@@ -217,8 +315,8 @@ var app = http.createServer(function(request, response) {
         `;
           response.writeHead(200);
           response.end(template);
-        }
-      );
+        });
+      });
     }
   } else {
     response.writeHead(404);
