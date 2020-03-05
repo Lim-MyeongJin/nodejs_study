@@ -14,7 +14,7 @@ PM2
 > site: https://pm2.keymetrics.io/
 
 #PM2 사용법   
-+**프로세스 시작**
++ **프로세스 시작**
 <pre><code>
  >> pm2 start app.js //앱 실행
 </code></pre>
