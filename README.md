@@ -14,9 +14,9 @@ PM2
 > site: https://pm2.keymetrics.io/
 
 #PM2 사용법
-> 앱 시작
+**앱 시작**
 <pre><code>
-pm2 start app.js
+ >> pm2 start app.js
 </code></pre>
 
 
