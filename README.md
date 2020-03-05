@@ -16,7 +16,7 @@ PM2
 #PM2 사용법
 > 앱 시작
 <pre><code>
- > pm2 start app.js
+pm2 start app.js
 </code></pre>
 
 
