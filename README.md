@@ -19,22 +19,22 @@ PM2
  >> pm2 start app.js //앱 실행
 </code></pre>
 
-**프로세스 시작 옵션**
++ **프로세스 시작 옵션**
 <pre><code>
  >> pm2 start app.js --watch //코드변경이 일어날 경우 바로 반영
 </code></pre>
 
-**프로세스 모니어링**
++ **프로세스 모니어링**
 <pre><code>
  >> pm2 monit
 </code></pre>
 
-**모든 프로세스 보기**
++ **모든 프로세스 보기**
 <pre><code>
  >> pm2 list
 </code></pre>
 
-**프로세스 관리**
++ **프로세스 관리**
 <pre><code>
  >> pm2 stop 프로세스이름
  >> pm2 restart 프로세스이름
