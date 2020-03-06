@@ -426,77 +426,6 @@
 
 
 ///////////////////////////////////// 함수활용  /////////////////////////////////////
-// var http = require("http");
-// var fs = require("fs");
-// var url = require("url");
-
-// function templateHTML(title, list, body){
-//   return  `
-//   <!doctype html>
-//   <html>
-//   <head>
-//     <title>WEB1 - ${title}</title>
-//     <meta charset="utf-8">
-//     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-//     <script src="colors.js"></script>
-//   </head>
-//   <body>
-//     <h1><a href="/">WEB</a></h1>
-//     <input id="night_day" type="button" value="night" onclick="nightDayHandler(this);">
-//     ${list}
-//     ${body}
-//   </body>
-//   </html>
-//   `;
-// }
-
-// function templateList(fileList) {
-//   var list = "<ul>";
-//   var i = 0;
-
-//   while (i < fileList.length) {
-//     list += `<li><a href='/?id=${fileList[i]}'>${fileList[i]}</a></li>`;
-//     i = i + 1;
-//   }
-
-//   list = list + "</ul>";
-//   return list;
-// }
-
-// var app = http.createServer(function(request, response) {
-//   var _url = request.url;
-//   var queryData = url.parse(_url, true).query;
-//   var pathname = url.parse(_url, true).pathname;
-
-//   if (pathname === "/") {
-//     if (queryData.id === undefined) {
-//       fs.readdir(`data`, function(err, fileList) {
-//         var title = "Welcome";
-//         var description = "Hello Node.js!";
-//         var list = templateList(fileList);
-//         var template = templateHTML(title, list, `<h2>${title}</h2><p>${description}</p>`);
-//         response.writeHead(200);
-//         response.end(template);
-//       });
-//     } else {
-//       fs.readdir(`data`, function(err, fileList) {
-//         fs.readFile(`data/${queryData.id}`, "utf8", function(err, description) {
-//           var title = queryData.id;
-//           var list = templateList(fileList);
-//           var template = templateHTML(title,list, `<h2>${title}</h2><p>${description}</p>`);
-//           response.writeHead(200);
-//           response.end(template);
-//         });
-//       });
-//     }
-//   } else {
-//     response.writeHead(404);
-//     response.end("Not found..");
-//   }
-// });
-// app.listen(3000);
-
-///////////////////////////////////// 함수활용2  /////////////////////////////////////
 var http = require("http");
 var fs = require("fs");
 var url = require("url");
@@ -534,40 +463,36 @@ function templateList(fileList) {
   return list;
 }
 
-function templatePage(id, fileList){
-  var template = null;
-  if (id === undefined) {
-    var title = "Welcome";
-    var description = "Hello Node.js!";
-    var list = templateList(fileList);
-    template = templateHTML(title, list, `<h2>${title}</h2><p>${description}</p>`);
-  } else {
-    fs.readFile(`data/${id}`, "utf8", function(err, description) {
-      var title = id;
-      var list = templateList(fileList);
-      template = templateHTML(title,list, `<h2>${title}</h2><p>${description}</p>`);
-    });
-  }
-  return template;
-}
-
 var app = http.createServer(function(request, response) {
   var _url = request.url;
   var queryData = url.parse(_url, true).query;
   var pathname = url.parse(_url, true).pathname;
 
   if (pathname === "/") {
-    var template=null;
-
-    fs.readdir(`data`, function(err, fileList) {
-      template = templatePage(queryData.id, fileList);
-    });
-
-    response.writeHead(200);
-    response.end(template);
+    if (queryData.id === undefined) {
+      fs.readdir(`data`, function(err, fileList) {
+        var title = "Welcome";
+        var description = "Hello Node.js!!!!!!!!";
+        var list = templateList(fileList);
+        var template = templateHTML(title, list, `<h2>${title}</h2><p>${description}</p>`);
+        response.writeHead(200);
+        response.end(template);
+      });
+    } else {
+      fs.readdir(`data`, function(err, fileList) {
+        fs.readFile(`data/${queryData.id}`, "utf8", function(err, description) {
+          var title = queryData.id;
+          var list = templateList(fileList);
+          var template = templateHTML(title,list, `<h2>${title}</h2><p>${description}</p>`);
+          response.writeHead(200);
+          response.end(template);
+        });
+      });
+    }
   } else {
     response.writeHead(404);
     response.end("Not found..");
   }
 });
 app.listen(3000);
+
