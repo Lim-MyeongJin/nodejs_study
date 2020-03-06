@@ -72,8 +72,6 @@
 //     <head>
 //       <title>WEB1 - ${title}</title>
 //       <meta charset="utf-8">
-//       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-//       <script src="colors.js"></script>
 //     </head>
 //     <body>
 //       <h1><a href="/">WEB</a></h1>
@@ -122,8 +120,6 @@
 //       <head>
 //         <title>WEB1 - ${title}</title>
 //         <meta charset="utf-8">
-//         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-//         <script src="colors.js"></script>
 //       </head>
 //       <body>
 //         <h1><a href="/">WEB</a></h1>
@@ -170,8 +166,6 @@
 //           <head>
 //             <title>WEB1 - ${title}</title>
 //             <meta charset="utf-8">
-//             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-//             <script src="colors.js"></script>
 //           </head>
 //           <body>
 //             <h1><a href="/">WEB</a></h1>
@@ -199,8 +193,6 @@
 //         <head>
 //           <title>WEB1 - ${title}</title>
 //           <meta charset="utf-8">
-//           <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-//           <script src="colors.js"></script>
 //         </head>
 //         <body>
 //           <h1><a href="/">WEB</a></h1>
@@ -261,8 +253,6 @@
 //           <head>
 //             <title>WEB1 - ${title}</title>
 //             <meta charset="utf-8">
-//             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-//             <script src="colors.js"></script>
 //           </head>
 //           <body>
 //             <h1><a href="/">WEB</a></h1>
@@ -301,8 +291,6 @@
 //         <head>
 //           <title>WEB1 - ${title}</title>
 //           <meta charset="utf-8">
-//           <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-//           <script src="colors.js"></script>
 //         </head>
 //         <body>
 //           <h1><a href="/">WEB</a></h1>
@@ -360,8 +348,6 @@
 //           <head>
 //             <title>WEB1 - ${title}</title>
 //             <meta charset="utf-8">
-//             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-//             <script src="colors.js"></script>
 //           </head>
 //           <body>
 //             <h1><a href="/">WEB</a></h1>
@@ -400,8 +386,6 @@
 //         <head>
 //           <title>WEB1 - ${title}</title>
 //           <meta charset="utf-8">
-//           <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-//           <script src="colors.js"></script>
 //         </head>
 //         <body>
 //           <h1><a href="/">WEB</a></h1>
@@ -437,8 +421,6 @@ function templateHTML(title, list, body){
   <head>
     <title>WEB1 - ${title}</title>
     <meta charset="utf-8">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="colors.js"></script>
   </head>
   <body>
     <h1><a href="/">WEB</a></h1>
@@ -472,11 +454,7 @@ var app = http.createServer(function(request, response) {
     if (queryData.id === undefined) {
       fs.readdir(`data`, function(err, fileList) {
         var title = "Welcome";
-<<<<<<< Updated upstream
         var description = "Hello Node.js!!!!!!!!";
-=======
-        var description = "Hello Node.js!!!!!!";
->>>>>>> Stashed changes
         var list = templateList(fileList);
         var template = templateHTML(title, list, `<h2>${title}</h2><p>${description}</p>`);
         response.writeHead(200);
