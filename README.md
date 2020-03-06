@@ -41,5 +41,8 @@ PM2
  >> pm2 delete 프로세스이름
 </code></pre>
 
-
++ **프로세스 문제점 확인**
+<pre><code>
+ >> pm2 log
+</code></pre>
 마크다운 참조링크: https://gist.github.com/ihoneymon/652be052a0727ad59601
