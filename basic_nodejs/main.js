@@ -472,7 +472,11 @@ var app = http.createServer(function(request, response) {
     if (queryData.id === undefined) {
       fs.readdir(`data`, function(err, fileList) {
         var title = "Welcome";
+<<<<<<< Updated upstream
         var description = "Hello Node.js!!!!!!!!";
+=======
+        var description = "Hello Node.js!!!!!!";
+>>>>>>> Stashed changes
         var list = templateList(fileList);
         var template = templateHTML(title, list, `<h2>${title}</h2><p>${description}</p>`);
         response.writeHead(200);
