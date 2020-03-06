@@ -10,3 +10,14 @@ remote: Permission to~~~~~ 403
 --> git push origin +master(강제진행)
 --> 기존 데이터 손실 우려
 --> git pull을 진행한 후 다시 실행
+
+
+error: failed to push some refs to 'xxx.git'
+
+--> Why? remote 버전과 로컬의 버전이 달라서 conflict(충돌)된 것.
+         remote에 내가 받지 않은 파일의 변경사항이 있는데 무시하고 remote에 올리면 
+         변경사항이 없어지게 되므로 git에서 push로 내 파일을 올리지 못하게 막는다..
+
+--> 해결책: remote에 있는 변경사항을 pull로 내려받은 후 내 파일과 merge하여 다시 push
+
+* 버전관리 이슈 참고 사이트: https://parksb.github.io/article/28.html
