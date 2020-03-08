@@ -39,4 +39,5 @@ function slowfunc(callback){
     바로 이것이 callback입니다.
     이해가 안될 수 있지만, 이런 개념이다! 라는 정도만 이해하도록 합시다.
 */
+
 slowfunc(a);

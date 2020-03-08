@@ -2,12 +2,12 @@ var fs = require('fs');
 /*
 //readFileSync
 console.log('A');
-var result = fs.readFileSync('syntax/sample.txt','utf-8');
+var result = fs.readFile('nodejs/sample2.txt','utf-8');
 console.log(result);
 console.log('C');
 */
 
-console.log('A');
+
 
 /*
     node.js에게 너가 가지고 있는 readFile라는 기능을 이용해서 sample2.txt 파일을 읽어와
@@ -18,10 +18,20 @@ console.log('A');
 
     그럼 저희도 callback을 만들어봅시다.
 */
+console.log('A');
+
 var result = fs.readFile('nodejs/sample2.txt','utf-8',function(err, result){
     console.log(result);
 });
+
 console.log('C');
 
 //동기 vs 비동기 차이
 //Node.JS의 성능을 제대로 끌어올리기 위해서는 반드시 비동기적인 작업을 해야 한다.
+
+var fs = require('fs');
+
+console.log('A');
+var result = fs.readFile('nodejs/sample2.txt','utf-8');
+console.log(result);
+console.log('C');
