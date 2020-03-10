@@ -20,4 +20,12 @@ error: failed to push some refs to 'xxx.git'
 
 --> 해결책: remote에 있는 변경사항을 pull로 내려받은 후 내 파일과 merge하여 다시 push
 
+
+git pull 시 메시지
+--> Please specify which branch you want to merge with.
+    See git-pull(1) for details. 
+
+    git pull <remote> <branch>  
+--> Why? 같은 파일 내 코드가 변경이 발생한 경우 임시 브랜치가 만들어져서 반경이 안됨.
+
 * 버전관리 이슈 참고 사이트: https://parksb.github.io/article/28.html
