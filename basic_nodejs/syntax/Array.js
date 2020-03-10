@@ -4,7 +4,7 @@
 var arr = ['A','B','C','D']; //Create
 
 console.log(arr[2]); //Read
-console.log(arr[3]);
+console.log(arr[3]); 
 
 //C -> c로 수정
 arr[2] = 'c';
