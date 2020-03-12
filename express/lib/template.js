@@ -22,7 +22,7 @@ module.exports = {
     var i = 0;
 
     while (i < fileList.length) {
-      list += `<li><a href='/page/${fileList[i]}'>${fileList[i]}</a></li>`;
+      list += `<li><a href='/topic/${fileList[i]}'>${fileList[i]}</a></li>`;
       i = i + 1;
     }
 
