@@ -37,23 +37,23 @@
 //     });
 // });
 
-// // app.get('/page',function(request,response){
+// app.get('/page',function(request,response){
 
-// //   return response.send(request.param('pageId'));
+//   return response.send(request.param('pageId'));
   
-// // });
-
-// app.get('/page/:pageId/:chapterId',function(request,response){
-
-//   return response.send(request.param('pageId')+'/'+request.param('chapterId'));
-
 // });
 
-// // app.get('/page/:pageId/:chapterId',function(request,response){
+app.get('/page/:pageId/:chapterId',function(request,response){
 
-// //   return response.send(request.params);
+  return response.send(request.param('pageId')+'/'+request.param('chapterId'));
 
-// // });
+});
+
+app.get('/page/:pageId/:chapterId',function(request,response){
+
+  return response.send(request.params);
+
+});
 
 // app.listen(port, function(){
 //   console.log(`Example app listening on port ${port}!`);
