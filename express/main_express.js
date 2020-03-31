@@ -43,17 +43,17 @@
   
 // });
 
-app.get('/page/:pageId/:chapterId',function(request,response){
+// app.get('/page/:pageId/:chapterId',function(request,response){
 
-  return response.send(request.param('pageId')+'/'+request.param('chapterId'));
+//   return response.send(request.param('pageId')+'/'+request.param('chapterId'));
 
-});
+// });
 
-app.get('/page/:pageId/:chapterId',function(request,response){
+// app.get('/page/:pageId/:chapterId',function(request,response){
 
-  return response.send(request.params);
+//   return response.send(request.params);
 
-});
+// });
 
 // app.listen(port, function(){
 //   console.log(`Example app listening on port ${port}!`);
@@ -63,7 +63,7 @@ app.get('/page/:pageId/:chapterId',function(request,response){
 const express = require('express');
 const app = express();
 const fs = require('fs');
-const template = require('./lib/template');
+const template = require('./lib/template_origin');
 const path = require('path');
 const sanitizeHtml = require('sanitize-html');
 const qs = require('querystring');
@@ -85,6 +85,7 @@ app.get('/', function(request, response) {
 
 //URL Path방식으로 parameter를 처리하는 라우팅 기법
 app.get("/page/:pageId", function(request, response) {
+  console.log(request.baseUrl);
   fs.readdir(`data`, function(err, fileList) {
     
     var filteredId = path.parse(request.params.pageId).base;
