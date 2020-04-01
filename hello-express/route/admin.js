@@ -14,7 +14,13 @@ router.get('/',function(req,res){
 });
 
 router.get('/products',function(req,res){
-    res.send('admin products');
+    // res.send('admin products');
+    // template을 화면에 보여주는 기능: render()
+    res.render('admin/products.html',{
+        message:'Hello Nunjucks!!!',
+        outline :'express',
+        test:'<h1>태그 출력</h1>',
+    });
 });
 
 module.exports = router;

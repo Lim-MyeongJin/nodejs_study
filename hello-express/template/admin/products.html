@@ -1,0 +1,31 @@
+
+    <!-- products <br>
+    {{ message }}<br>
+    {{ outline }}<br>
+    {{ test | safe}} -->
+<!-- safe: 안전하다는 의미로 문자열로 나오는 tag를 브라우저가 인식할 수 있도록 설정 -->
+
+{% set title = "관리자 리스트" %}
+{{ message }} 	{% extends "layout/base.html" %}
+
+{% block content -%}
+    <table class="table table-bordered table-hover">
+        <tr>
+            <th>제목</th>
+            <th>작성일</th>
+            <th>삭제</th>
+        </tr>
+        <tr>
+            <td>제품 이름</td>
+            <td>
+                2020-03-07
+            </td>
+            <td>
+                <a href="#" class="btn btn-danger">삭제</a>
+            </td>
+        </tr>
+    </table>
+
+    <a href="/admin/products/write" class="btn btn-default">작성하기</a>
+
+{% endblock %} 
