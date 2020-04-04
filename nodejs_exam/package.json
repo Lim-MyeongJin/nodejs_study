@@ -1,0 +1,14 @@
+{
+  "name": "nodejs_exam",
+  "version": "1.0.0",
+  "description": "",
+  "main": "ex01.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npx nodemon ex01_1.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
+
+
