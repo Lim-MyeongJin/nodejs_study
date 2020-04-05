@@ -28,4 +28,8 @@ git pull 시 메시지
     git pull <remote> <branch>  
 --> Why? 같은 파일 내 코드가 변경이 발생한 경우 임시 브랜치가 만들어져서 반경이 안됨.
 
+arning: LF will be replaced by CRLF 메시지
+--> 개행문자 관련 오류
+--> 해결책: git config core.autocrlf true
+
 * 버전관리 이슈 참고 사이트: https://parksb.github.io/article/28.html

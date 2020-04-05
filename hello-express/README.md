@@ -42,5 +42,23 @@ REST API
 >>PUT /users/(ID) => 한명 수정
 >>DELETE /users/(ID) => 삭제
 
-
+-------------------------------------------------------------------------------------------------
+express
+routing
+view engine
+템플릿상속
+미들웨어
+form(body-parser)
+정적파일
+Global View Variable
+404,500 error handling
+nunjucks marcro
+express 권장구조
+ - app.js
+    1)app관련 express 셋팅이 다 모아져 있음
+	서버를 띄우는 부분도 있고 나중에 소켓도 추가될 수 있기 때문에
+	역할을 분리시켜야 한다.
+    2)여러 미들웨어를 클래스화하여 관리
+    
+참고사이트: https://github.com/parkjunyoung/express-online
 

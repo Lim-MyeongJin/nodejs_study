@@ -15,9 +15,9 @@ nunjucks.configure('template',{
 
 app.use('/static',express.static('uploads'));
 app.use(function(req,res,next){
-    //Global View Variable 선언 - 이걸해주지 않으면 매번 응답할 때 로그인상태값을 전달해줘야 한다.
-    //코드의 낭비...
+    // req.path: 현재 url 정보
     app.locals.isLogin = true;
+    app.locals.req_path = req.path;
     next();
 });
 app.use(logger('dev'));
