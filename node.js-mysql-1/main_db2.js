@@ -188,7 +188,6 @@ var app = http.createServer(function(request,response){
       request.on('end', function(){
           var post = qs.parse(body);
           var id = post.id;
-          var filteredId = path.parse(id).base;
 
           db.query('DELETE FROM topic where id=?', [id], function(error, result){
                 if(error){console.log('오류발생>>',error);}

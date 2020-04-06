@@ -5,9 +5,10 @@ var db = require('./db');
 var template = require('./template');
 var url = require('url');
 var qs = require('querystring');
+var sanitizeHTML = require('sanitize-html');
 
-exports.home = function(request,reponse){
-    db.query('SELECT * FROM TOPIC',function(error, topics, fields){
+exports.home = function(request,response){
+    db.query('SELECT * FROM TOPIC',function(error, topics){
         if(error){console.log('오류발생>>',error);}
         console.log(topics);
     
@@ -30,7 +31,14 @@ exports.page = function(request,response){
     db.query('SELECT * FROM TOPIC',function(error, topics, fields){
         if(error){ throw error; }
         
-        db.query(`select * from topic LEFT JOIN author ON topic.author_id = author.id where topic.id = ?`,[queryData.id],function(error2, topic){
+        //SQL injection 공격에 대한 보안처리
+        //사용자가 입력한 정보에 오염된 정보가 있을 경우 그것을 안전하게 데이터베이스 서버로 전송될 수 있도록 여러 가지 처리가 되어 있음
+        //반드시 직접 넣는 것이 아닌 '?' 를 이용해서 값이 담길 수 있도록 해야 한다..
+        //잘못된 방식)
+        //var sql = `select * from topic LEFT JOIN author ON topic.author_id = author.id where topic.id = ${queryData.id}`;
+        //var query = db.query(sql, function(error2, topic){
+
+        var query = db.query(`select * from topic LEFT JOIN author ON topic.author_id = author.id where topic.id = ?`,[queryData.id],function(error2, topic){
           if(error2){ throw error2; }
 
           console.log(topic);
@@ -39,9 +47,9 @@ exports.page = function(request,response){
           var description = topic[0].description;
           var list = template.list(topics);
           var html = template.HTML(title, list,
-            `<h2>${title}</h2>
-            ${description}
-            <p>by ${topic[0].name}</p>
+            `<h2>${sanitizeHTML(title)}</h2>
+            ${sanitizeHTML(description)}
+            <p>by ${sanitizeHTML(topic[0].name)}</p>
             `,
             `<a href="/create">create</a>
             <a href="/update?id=${queryData.id}">update</a>
@@ -50,6 +58,7 @@ exports.page = function(request,response){
               <input type="submit" value="delete">
             </form>`
           );
+          console.log(query.sql);
           response.writeHead(200);
           response.end(html);
         });
@@ -67,7 +76,7 @@ exports.create = function(request,response){
 
           var title = 'WEB - Create';
           var list = template.list(topics);
-          var html = template.HTML(title, list,
+          var html = template.HTML(sanitizeHTML(title), list,
             `<form action="/create_process" method="post">
               <p>
                 ${template.authorSelect(authors)}
@@ -130,7 +139,7 @@ exports.update = function(request,response){
           db.query('SELECT * FROM AUTHOR',function(error, authors, fields){
             
             var list = template.list(topics);
-            var html = template.HTML(topic[0].title, list,
+            var html = template.HTML(sanitizeHTML(topic[0].title), list,
               `<form action="/update_process" method="post">
                   <input type="hidden" name="id" value="${topic[0].id}">
                   <p>
@@ -190,7 +199,6 @@ exports.delete = function(request,response){
     request.on('end', function(){
         var post = qs.parse(body);
         var id = post.id;
-        var filteredId = path.parse(id).base;
 
         db.query('DELETE FROM topic where id=?', [id], function(error, result){
               if(error){console.log('오류발생>>',error);}
