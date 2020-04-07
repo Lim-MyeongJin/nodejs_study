@@ -5,6 +5,7 @@ var qs = require('querystring');
 var template = require('./lib/template.js');
 var path = require('path');
 var sanitizeHtml = require('sanitize-html');
+var cookie = require('cookie');
 
 var app = http.createServer(function(request,response){
     var _url = request.url;
@@ -135,7 +136,46 @@ var app = http.createServer(function(request,response){
             response.end();
           })
       });
-    } else {
+    } else if(pathname === '/login'){
+      fs.readdir('./data', function(error, filelist){
+        var title = 'Welcome';
+        var description = 'Hello, Node.js';
+        var list = template.list(filelist);
+        var html = template.HTML(title, list,
+          `
+            <form action="login_process" method="post">
+              <p><input type="text" name="email" placeholder="email"></p>
+              <p><input type="password" name="password" placeholder="password"></p>
+              <p><input type="submit" value="login"></p>
+            </form>
+          `,
+          `<a href="/create">create</a>`
+        );
+        response.writeHead(200);
+        response.end(html);
+      });
+    }else if(pathname === '/login_process'){
+      var body = '';
+      request.on('data', function(data){
+          body = body + data;
+      });
+      request.on('end', function(){
+          var post = qs.parse(body);
+          var email = post.email;
+          var password = post.password;
+
+          if(email === 'smart@smhrd.or.kr' && password === '1234'){
+            response.writeHead({
+              'Set-Cookie':[
+                `email=${email}`,
+                `password=${password}`,
+                `Permanent=cookies; Max-Age=${60*60*24*7}`,
+                'HttpOnly=HttpOnly; HttpOnly'
+              ]});
+          }
+          
+      });
+    }else {
       response.writeHead(404);
       response.end('Not found');
     }
