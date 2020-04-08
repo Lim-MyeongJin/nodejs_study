@@ -6,7 +6,7 @@ var server = http.createServer(function(req,res){
 
     console.log(req.headers.cookie);
     var cookies = {};
-    if(req.headers.cookie != undefined){
+    if(req.headers.cookie != undefined){ //쿠키값이 없으면 에러를 발생하기 때문에 undefined인지 확인할 것.
         cookies = cookie.parse(req.headers.cookie);
     }
     console.log(cookies);
